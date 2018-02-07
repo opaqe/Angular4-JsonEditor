@@ -1,9 +1,9 @@
-import { Component, OnInit, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ElementRef, Input, ViewChild } from '@angular/core';
 import * as editor from 'jsoneditor';
 
 @Component({
   selector: 'json-editor',
-  template: '<div></div>'
+  template: '<div #root></div>'
 })
 
 export class JsonEditorComponent implements OnInit {
@@ -11,10 +11,11 @@ export class JsonEditorComponent implements OnInit {
   private optionsDiffer: any;
   private dataDiffer: any;
 
+  @ViewChild('root', { read: ElementRef }) rootElement: ElementRef;
   @Input() options: JsonEditorOptions = new JsonEditorOptions();
   @Input() data: Object = {};
 
-  constructor(private rootElement: ElementRef) { }
+  constructor() { }
 
   ngOnInit() {
     this.editor = new editor(this.rootElement.nativeElement, this.options, this.data);
